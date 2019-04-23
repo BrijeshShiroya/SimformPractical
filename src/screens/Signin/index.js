@@ -4,11 +4,13 @@ import { TextField, Button } from 'atoms';
 import styles from './style';
 import * as icon from 'icons';
 import * as alerts from '../../constants/alerts';
+import { connect } from 'react-redux';
+import { login } from '../../store/Auth/actions';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import * as util from '../../utility';
 
 
-export default class Signin extends Component {
+class Signin extends Component {
 
     constructor(props) {
         super(props)
@@ -20,11 +22,13 @@ export default class Signin extends Component {
 
     componentWillMount() {
         AsyncStorage.getItem('loginData').then((result) => {
-            if (result) {
+            if (JSON.parse(result)) {
                 this.props.navigation.navigate('Home')
             } else {
 
             }
+        }).catch(() => {
+            // returnToDispatch(dispatch, LOGIN_FAILURE)
         })
     }
 
@@ -93,4 +97,13 @@ export default class Signin extends Component {
     }
 }
 
+
+const mapStateToProps = state => {
+    const { loading, userData } = state.video
+    return {
+        loading, userData
+    }
+};
+
+export default connect(mapStateToProps, { login })(Signin)
 

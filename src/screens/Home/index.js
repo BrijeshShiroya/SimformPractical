@@ -45,7 +45,6 @@ class Home extends Component {
                     borderRadius: 10,
                     alignItems: 'center',
                     justifyContent: 'center',
-                    backgroundColor: "green"
                 }}>
                     <Image source={{ uri: item.thumbnail_url }} style={{ height: '100%', width: '100%' }} />
                 </View>

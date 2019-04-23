@@ -1,5 +1,5 @@
 import React from "react";
-import { BackHandler, Alert } from "react-native";
+import { BackHandler, Alert, AsyncStorage } from "react-native";
 import { NavigationActions } from "react-navigation";
 import { connect } from 'react-redux'
 import AppNavigator from './appRouteConfig';

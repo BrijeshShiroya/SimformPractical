@@ -11,10 +11,8 @@ const intialState = {
 }
 
 export default (state = intialState, action) => {
-  console.log('coming into reducer')
   switch (action.type) {
     case LOGIN_REQUEST:
-      console.log('coming into reducer of ', action.type)
       return {
         ...state,
         loading: true
@@ -22,11 +20,13 @@ export default (state = intialState, action) => {
     case LOGIN_SUCCESS:
       return {
         ...state,
+        userData: action.payload,
         loading: false
       };
     case LOGIN_FAILURE:
       return {
         ...state,
+        userData: {},
         loading: false
       };
     default:
