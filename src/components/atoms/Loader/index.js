@@ -10,7 +10,7 @@ export default class Loader extends Component {
         return (
             isVisible ?
                 <View style={styles.container} >
-                    <ActivityIndicator size="small" color={color.primaryColor} />
+                    <ActivityIndicator size="small" color={'white'} />
                 </View> : null
         );
     }

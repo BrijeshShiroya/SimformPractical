@@ -12,7 +12,6 @@ export const getVideoList = (isRefresh) => {
         if (isRefresh) {
             returnToDispatch(dispatch, VIDEO_FETCH_REQUEST)
         }
-
         axios({
             method: 'get',
             url: API.GET_ALL_VIDEO_URL,
