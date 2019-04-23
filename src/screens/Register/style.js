@@ -22,6 +22,7 @@ export default styles = StyleSheet.create({
     },
     logo: {
         alignItems: 'center',
+        overflow: 'hidden',
         justifyContent: 'center',
         height: 120,
         width: 120,
