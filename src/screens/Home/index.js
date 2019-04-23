@@ -80,6 +80,15 @@ class Home extends Component {
             <SafeAreaView style={styles.container}>
                 <Header title={'Video'} onPress={this.onBackPress} />
                 {this.renderVideoList()}
+                <TouchableOpacity style={{
+                    position: 'absolute',
+                    top: 42,
+                    right: 20
+                }} onPress={() => {
+                    this.props.navigation.navigate('Profile')
+                }}>
+                    <Text>Profile</Text>
+                </TouchableOpacity>
                 <Loader isVisible={this.props.loading} />
             </SafeAreaView>
         );

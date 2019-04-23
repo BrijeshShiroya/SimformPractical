@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { View, SafeAreaView, Image, Text } from 'react-native';
+import { View, SafeAreaView, Image, Text, AsyncStorage } from 'react-native';
 import { TextField, Button } from 'atoms';
 import styles from './style';
 import * as icon from 'icons';
-import * as alert from '../../constants/alerts';
+import * as alerts from '../../constants/alerts';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import * as util from '../../utility';
 
@@ -18,6 +18,16 @@ export default class Signin extends Component {
         }
     }
 
+    componentWillMount() {
+        AsyncStorage.getItem('loginData').then((result) => {
+            if (result) {
+                this.props.navigation.navigate('Home')
+            } else {
+
+            }
+        })
+    }
+
     onForgetPress = () => {
 
     }
@@ -28,17 +38,22 @@ export default class Signin extends Component {
 
     onLoginPress = () => {
         if (this.state.email.trim() == '') {
-            util.showAlert(alert.enter_email)
+            util.showAlert(alerts.enter_email)
         } else if (!util.isValidEmail(this.state.email.trim())) {
-            util.showAlert(alert.invalid_email)
+            util.showAlert(alerts.invalid_email)
         } else if (this.state.password.trim() == '') {
-            util.showAlert(alert.enter_password)
+            util.showAlert(alerts.enter_password)
         } else {
             // let requestParam = {}
             // requestParam.email = this.state.email
             // requestParam.password = this.state.password
             // // this.props.login(requestParam)
-            this.props.navigation.navigate('Home')
+            var loginData = {}
+            loginData.email = this.state.email
+            loginData.password = this.state.password
+            AsyncStorage.setItem('loginData', JSON.stringify(loginData)).then((success) => {
+                this.props.navigation.navigate('Home')
+            })
         }
 
     }

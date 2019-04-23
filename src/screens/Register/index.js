@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, SafeAreaView, Image, Text, TouchableOpacity, Alert } from 'react-native';
+import { View, SafeAreaView, Image, Text, TouchableOpacity, Alert, AsyncStorage } from 'react-native';
 import { TextField, Button } from 'atoms';
 import styles from './style';
 import * as icon from 'icons';
@@ -36,11 +36,13 @@ export default class Register extends Component {
         } else if (this.state.password.trim() == '') {
             util.showAlert(alerts.enter_password)
         } else {
-            // let requestParam = {}
-            // requestParam.email = this.state.email
-            // requestParam.password = this.state.password
-            // // this.props.login(requestParam)
-            this.props.navigation.navigate('Home')
+            var registerData = {}
+            registerData.fullname = this.state.fullname
+            registerData.email = this.state.email
+            registerData.password = this.state.password
+            AsyncStorage.setItem('registerData', JSON.stringify(registerData)).then((success) => {
+                this.props.navigation.navigate('Home')
+            })
         }
     }
 
