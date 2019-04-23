@@ -7,6 +7,7 @@ import * as alerts from '../../constants/alerts';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import * as util from '../../utility';
 import ImagePicker from 'react-native-image-crop-picker';
+
 let pictureSize = 1000
 
 export default class Register extends Component {
@@ -112,39 +113,41 @@ export default class Register extends Component {
     render() {
         return (
             <SafeAreaView style={styles.container}>
-                <KeyboardAwareScrollView contentContainerStyle={styles.innerContainer}>
-                    <View style={styles.loginContainer}>
-                        <TouchableOpacity style={styles.logo} onPress={() => this.onProfileClick()}>
-                            {this.state.profileUrl != '' ?
-                                <Image source={{ uri: this.state.profileUrl }} style={{ height: '100%', width: '100%' }} /> :
-                                <Image source={icon.IC_PROFILE} />
-                            }
-                        </TouchableOpacity>
-                        <TextField
-                            placeholder={'full name'}
-                            onChangeText={(text) => this.setState({ fullname: text })}
-                            value={this.state.fullname}
-                        />
-                        <View style={styles.separator}></View>
-                        <TextField
-                            placeholder={'email address'}
-                            keyboardType={'email-address'}
-                            onChangeText={(text) => this.setState({ email: text })}
-                            value={this.state.email}
-                        />
-                        <View style={styles.separator}></View>
-                        <TextField
-                            placeholder={'Password'}
-                            secureTextEntry
-                            onChangeText={(text) => this.setState({ password: text })}
-                            value={this.state.password}
-                        />
-                        <Button
-                            moreContainerStyle={{ marginTop: 30 }}
-                            title={'Register'}
-                            onPress={this.onRegisterPress}
-                        />
-                    </View>
+                <View style={{ flex: 1 }}>
+                    <KeyboardAwareScrollView contentContainerStyle={styles.innerContainer}>
+                        <View style={styles.loginContainer}>
+                            <TouchableOpacity style={styles.logo} onPress={() => this.onProfileClick()}>
+                                {this.state.profileUrl != '' ?
+                                    <Image source={{ uri: this.state.profileUrl }} style={{ height: '100%', width: '100%' }} /> :
+                                    <Image source={icon.IC_PROFILE} />
+                                }
+                            </TouchableOpacity>
+                            <TextField
+                                placeholder={'full name'}
+                                onChangeText={(text) => this.setState({ fullname: text })}
+                                value={this.state.fullname}
+                            />
+                            <View style={styles.separator}></View>
+                            <TextField
+                                placeholder={'email address'}
+                                keyboardType={'email-address'}
+                                onChangeText={(text) => this.setState({ email: text })}
+                                value={this.state.email}
+                            />
+                            <View style={styles.separator}></View>
+                            <TextField
+                                placeholder={'Password'}
+                                secureTextEntry
+                                onChangeText={(text) => this.setState({ password: text })}
+                                value={this.state.password}
+                            />
+                            <Button
+                                moreContainerStyle={{ marginTop: 30 }}
+                                title={'Register'}
+                                onPress={this.onRegisterPress}
+                            />
+                        </View>
+                    </KeyboardAwareScrollView>
                     <View style={styles.bottomContainer}>
                         <Button
                             moreContainerStyle={{ width: '100%', borderRadius: 0 }}
@@ -152,7 +155,7 @@ export default class Register extends Component {
                             onPress={this.onCancelPress}
                         />
                     </View>
-                </KeyboardAwareScrollView>
+                </View>
             </SafeAreaView>
         );
     }

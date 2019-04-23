@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, SafeAreaView, FlatList, Image, RefreshControl } from 'react-native';
-import { Loader } from 'atoms';
+import { Loader, Header } from 'atoms';
 import { connect } from 'react-redux';
 import { getVideoList } from '../../store/Video/actions';
 import styles from './style';
@@ -71,9 +71,14 @@ class Home extends Component {
             />
         )
     }
+
+    onBackPress = () => {
+        this.props.navigation.goBack()
+    }
     render() {
         return (
             <SafeAreaView style={styles.container}>
+                <Header title={'Video'} onPress={this.onBackPress} />
                 {this.renderVideoList()}
                 <Loader isVisible={this.props.loading} />
             </SafeAreaView>

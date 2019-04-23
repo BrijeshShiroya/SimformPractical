@@ -13,7 +13,7 @@ export default class Signin extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            email: 'dd',
+            email: '',
             password: ''
         }
     }

@@ -8,7 +8,7 @@ const AppNavigator = createStackNavigator({
   Register: { screen: Register }
 },
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'Signin',
     headerMode: 'none',
   })
 export default AppNavigator;
