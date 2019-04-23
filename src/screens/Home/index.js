@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, SafeAreaView, FlatList, Image, RefreshControl } from 'react-native';
+import { View, Text, Share, TouchableOpacity, SafeAreaView, Platform, FlatList, Image, RefreshControl } from 'react-native';
 import { Loader, Header } from 'atoms';
 import { connect } from 'react-redux';
 import { getVideoList } from '../../store/Video/actions';
@@ -18,6 +18,27 @@ class Home extends Component {
     componentWillMount() {
         this.props.getVideoList(true)
     }
+
+    onShare = async (item) => {
+        try {
+            const result = await Share.share({
+                message:
+                    item.video_url,
+            });
+
+            if (result.action === Share.sharedAction) {
+                if (result.activityType) {
+                    // shared with activity type of result.activityType
+                } else {
+                    // shared
+                }
+            } else if (result.action === Share.dismissedAction) {
+                // dismissed
+            }
+        } catch (error) {
+            alert(error.message);
+        }
+    };
 
     componentDidUpdate(prevProps, nextState) {
         if (prevProps.videoList != this.props.videoList) {
@@ -38,6 +59,8 @@ class Home extends Component {
             <TouchableOpacity style={{
                 flex: 1,
                 paddingRight: 20,
+            }} onPress={() => {
+                this.onShare(item)
             }}>
                 <View style={{
                     width: (common.SCREEN_WIDTH - 60) / 2,
@@ -81,12 +104,12 @@ class Home extends Component {
                 {this.renderVideoList()}
                 <TouchableOpacity style={{
                     position: 'absolute',
-                    top: 42,
+                    top: Platform.OS == 'ios' ? 42 : 20,
                     right: 20
                 }} onPress={() => {
                     this.props.navigation.navigate('Profile')
                 }}>
-                    <Text>Profile</Text>
+                    <Text style={{ color: 'white' }}>Profile</Text>
                 </TouchableOpacity>
                 <Loader isVisible={this.props.loading} />
             </SafeAreaView>

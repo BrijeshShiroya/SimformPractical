@@ -17,8 +17,10 @@ export default class Profile extends Component {
 
     componentWillMount() {
         AsyncStorage.getItem('loginData').then((result) => {
+
+            let data = JSON.parse(result)
             this.setState({
-                email: result.email
+                email: data.email
             })
 
         })

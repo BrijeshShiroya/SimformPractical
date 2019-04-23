@@ -19,7 +19,7 @@ class ReduxNavigation extends React.Component {
 
     onBackPress = () => {
         const { dispatch, nav } = this.props;
-        if (nav.index === 0) {
+        if (nav.index === 0 || nav.index === 1) {
             Alert.alert(
                 'Exit App',
                 'Exiting the application?', [{

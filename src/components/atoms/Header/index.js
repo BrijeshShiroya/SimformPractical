@@ -6,7 +6,7 @@ export default class Header extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <TouchableOpacity style={{
+                {/* <TouchableOpacity style={{
                     alignItems: 'center',
                     justifyContent: 'center',
                     position: 'absolute',
@@ -15,7 +15,7 @@ export default class Header extends Component {
                     aspectRatio: 1.0
                 }} onPress={this.props.onPress}>
                     <Image source={icon.IC_BACK} />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
                 <Text style={styles.title}>{this.props.title}</Text>
             </View>
         );
