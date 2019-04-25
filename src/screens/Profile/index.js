@@ -57,7 +57,10 @@ export default class Profile extends Component {
                 this.setState({
                     isEdited: false
                 })
-                util.showAlert('Data save successful')
+                setTimeout(() => {
+                    util.showAlert('Data save successful')
+                }, 100);
+
             })
         }
     }
@@ -179,8 +182,9 @@ export default class Profile extends Component {
                     onRightPress={this.onEditPress}
                 />
                 <View style={{ flex: 1 }} >
-                    <KeyboardAwareScrollView contentContainerStyle={styles.innerContainer} pointerEvents={this.state.isEdited ? 'auto' : 'none'}>
-                        <View style={styles.loginContainer}>
+                    <KeyboardAwareScrollView contentContainerStyle={styles.innerContainer}
+                    >
+                        <View style={styles.loginContainer} pointerEvents={this.state.isEdited ? 'auto' : 'none'}>
                             <TouchableOpacity style={styles.logo} onPress={() => this.onProfileClick()}>
                                 {this.state.profileUrl != '' ?
                                     <Image source={{ uri: this.state.profileUrl }} style={{ height: '100%', width: '100%' }} /> :

@@ -33,7 +33,7 @@ export const restoreSession = () => {
 export const login = (loginData) => {
     return (dispatch) => {
         returnToDispatch(dispatch, LOGIN_REQUEST)
-        if (loginData.email === 'Admin@gmail.com' && loginData.password === '123456') {
+        if (loginData.email.toLowerCase() == 'Admin@gmail.com'.toLowerCase() && loginData.password === '123456') {
             returnToDispatch(dispatch, LOGIN_SUCCESS)
             AsyncStorage.setItem(keys.ASYNC_LOGIN_DATA, JSON.stringify(loginData)).then((success) => {
                 dispatch(NavigationActions.navigate({
