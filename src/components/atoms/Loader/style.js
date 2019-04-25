@@ -3,7 +3,7 @@ import * as common from '../';
 
 export default styles = StyleSheet.create({
     container: {
-        backgroundColor: '#00000050',//'transparent'//,
+        backgroundColor: 'transparent',
         position: 'absolute',
         height: common.SCREEN_HEIGHT,
         width: common.SCREEN_WIDTH,

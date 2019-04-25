@@ -3,6 +3,7 @@ import { View, SafeAreaView, Image, Text, TouchableOpacity, Alert, AsyncStorage 
 import { TextField, Button } from 'atoms';
 import styles from './style';
 import * as icon from 'icons';
+import * as keys from '../../constants/keys';
 import * as alerts from '../../constants/alerts';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import * as util from '../../utility';
@@ -16,7 +17,7 @@ export default class Register extends Component {
         super(props)
         this.state = {
             fullname: '',
-            email: 'dd',
+            email: '',
             password: '',
             profileUrl: ''
         }
@@ -35,12 +36,15 @@ export default class Register extends Component {
             util.showAlert(alerts.invalid_email)
         } else if (this.state.password.trim() == '') {
             util.showAlert(alerts.enter_password)
+        } else if (this.state.profileUrl.trim() == '') {
+            util.showAlert(alerts.select_picture)
         } else {
             var registerData = {}
             registerData.fullname = this.state.fullname
             registerData.email = this.state.email
             registerData.password = this.state.password
-            AsyncStorage.setItem('registerData', JSON.stringify(registerData)).then((success) => {
+            registerData.profileUrl = this.state.profileUrl
+            AsyncStorage.setItem(keys.ASYNC_REGISTER_DATA, JSON.stringify(registerData)).then((success) => {
                 this.props.navigation.navigate('Home')
             })
         }
@@ -68,13 +72,11 @@ export default class Register extends Component {
                             })
                         }).catch(e => {
                             let code = e.code;
-                            // utility.openSetting(alerts.ALERT_NEED_CAMERA_PERMISSION)
                             if (code === 'E_PICKER_CANCELLED') {
 
                             } else if (code === 'E_PERMISSION_MISSING') {
-                                // utility.openSetting(alerts.ALERT_NEED_CAMERA_PERMISSION)
+
                             } else {
-                                // utility.openSetting(alerts.ALERT_NEED_CAMERA_PERMISSION)
                             }
                         });
                     }
@@ -93,12 +95,10 @@ export default class Register extends Component {
                             })
                             console.log(image.path)
                         }).catch(e => {
-                            // alert(JSON.stringify(e));
                             let code = e.code;
                             if (code === 'E_PICKER_CANCELLED') {
 
                             } else if (code === 'E_PERMISSION_MISSING') {
-                                // openSetting(alerts.ALERT_NEED_CAMERA_PERMISSION)
                             }
                         });
                     }

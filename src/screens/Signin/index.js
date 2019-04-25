@@ -5,7 +5,7 @@ import styles from './style';
 import * as icon from 'icons';
 import * as alerts from '../../constants/alerts';
 import { connect } from 'react-redux';
-import { login } from '../../store/Auth/actions';
+import { login, restoreSession } from '../../store/Auth/actions';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import * as util from '../../utility';
 
@@ -20,16 +20,8 @@ class Signin extends Component {
         }
     }
 
-    componentWillMount() {
-        AsyncStorage.getItem('loginData').then((result) => {
-            if (JSON.parse(result)) {
-                this.props.navigation.navigate('Home')
-            } else {
-
-            }
-        }).catch(() => {
-            // returnToDispatch(dispatch, LOGIN_FAILURE)
-        })
+    componentDidMount() {
+        this.props.restoreSession()
     }
 
     onForgetPress = () => {
@@ -48,16 +40,13 @@ class Signin extends Component {
         } else if (this.state.password.trim() == '') {
             util.showAlert(alerts.enter_password)
         } else {
-            // let requestParam = {}
-            // requestParam.email = this.state.email
-            // requestParam.password = this.state.password
-            // // this.props.login(requestParam)
             var loginData = {}
             loginData.email = this.state.email
             loginData.password = this.state.password
-            AsyncStorage.setItem('loginData', JSON.stringify(loginData)).then((success) => {
-                this.props.navigation.navigate('Home')
-            })
+            this.props.login(loginData)
+            // AsyncStorage.setItem('loginData', JSON.stringify(loginData)).then((success) => {
+            //     this.props.navigation.navigate('Home')
+            // })
         }
 
     }
@@ -99,11 +88,11 @@ class Signin extends Component {
 
 
 const mapStateToProps = state => {
-    const { loading, userData } = state.video
+    const { loading, userData } = state.auth
     return {
         loading, userData
     }
 };
 
-export default connect(mapStateToProps, { login })(Signin)
+export default connect(mapStateToProps, { login, restoreSession })(Signin)
 

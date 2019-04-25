@@ -13,6 +13,7 @@
     "react-native-gesture-handler": "^1.1.0",
     "react-native-image-crop-picker": "^0.23.1",
     "react-native-keyboard-aware-scroll-view": "^0.8.0",
+    "react-native-video": "^4.4.1",
     "react-navigation": "^3.8.1",
     "react-navigation-redux-helpers": "^3.0.2",
     "react-redux": "^7.0.2",

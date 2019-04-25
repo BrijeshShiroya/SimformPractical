@@ -1,5 +1,6 @@
 import React from "react";
-import { BackHandler, Alert, AsyncStorage } from "react-native";
+import { BackHandler, Alert, AsyncStorage, StatusBar } from "react-native";
+import * as color from '../src/constants/colors';
 import { NavigationActions } from "react-navigation";
 import { connect } from 'react-redux'
 import AppNavigator from './appRouteConfig';
@@ -9,6 +10,8 @@ const App = createReduxContainer(AppNavigator);
 
 class ReduxNavigation extends React.Component {
     componentDidMount() {
+        StatusBar.setBarStyle('light-content', true)
+        StatusBar.setBackgroundColor(color.primaryColor)
         console.disableYellowBox = true
         BackHandler.addEventListener("hardwareBackPress", this.onBackPress);
     }

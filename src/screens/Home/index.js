@@ -50,37 +50,61 @@ class Home extends Component {
     }
 
     onRefresh() {
-        this.setState({ isRefreshing: true }); // true isRefreshing flag for enable pull to refresh indicator
+        this.setState({ isRefreshing: true });
         this.props.getVideoList(false)
     }
 
+    // _renderItem = ({ item }) => {
+    //     return (
+    //         <TouchableOpacity style={{
+    //             flex: 1,
+    //             paddingRight: 20,
+    //         }} onPress={() => {
+    //             this.onShare(item)
+    //         }}>
+    //             <View style={{
+    //                 width: '100%',
+    //                 aspectRatio: 1.2,
+    //                 borderRadius: 10,
+    //                 alignItems: 'center',
+    //                 justifyContent: 'center',
+    //             }}>
+    //                 <Image source={{ uri: item.thumbnail_url }} style={{ height: '100%', width: '100%' }} />
+    //             </View>
+    //             <Text style={{ color: 'white', paddingTop: 10, paddingBottom: 10 }}>{item.title}</Text>
+    //         </TouchableOpacity>)
+    // }
+
     _renderItem = ({ item }) => {
         return (
-            <TouchableOpacity style={{
-                flex: 1,
-                paddingRight: 20,
-            }} onPress={() => {
-                this.onShare(item)
+            <TouchableOpacity style={styles.itemContainer} onPress={() => {
+                // this.onShare(item)
+                this.props.navigation.navigate('PlayVideo', { videoData: item })
             }}>
-                <View style={{
-                    width: (common.SCREEN_WIDTH - 60) / 2,
-                    aspectRatio: 1.2,
-                    borderRadius: 10,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                }}>
-                    <Image source={{ uri: item.thumbnail_url }} style={{ height: '100%', width: '100%' }} />
+                <View style={styles.otherItemContainer}>
+                    <Text style={{
+                        color: 'white',
+                        paddingTop: 10,
+                        paddingBottom: 10,
+                        alignSelf: 'center',
+                        color: 'black',
+                        fontSize: 16
+                    }}>{item.title}</Text>
                 </View>
-                <Text style={{ color: 'white', paddingTop: 10, paddingBottom: 10 }}>{item.title}</Text>
+                <View style={styles.videoItemContainer}>
+                    <Image
+                        source={{ uri: item.thumbnail_url }}
+                        style={{ height: '100%', width: '100%' }} />
+                </View>
+
+
             </TouchableOpacity>)
     }
-
     renderVideoList() {
         return (
             <FlatList
-                style={{ width: '100%' }}
-                contentContainerStyle={{ padding: 20, paddingTop: 0, paddingRight: 0, }}
-                numColumns={2}
+                style={{ width: '100%', backgroundColor: 'white' }}
+                contentContainerStyle={{ paddingTop: 20, paddingLeft: 20, paddingRight: 20 }}
                 data={this.state.videos}
                 renderItem={this._renderItem}
                 refreshControl={
@@ -97,20 +121,17 @@ class Home extends Component {
     onBackPress = () => {
         this.props.navigation.goBack()
     }
+    onProfilePress = () => {
+        this.props.navigation.navigate('Profile')
+    }
     render() {
         return (
             <SafeAreaView style={styles.container}>
-                <Header title={'Video'} onPress={this.onBackPress} />
+                <Header title={'Video'}
+                    onPress={this.onBackPress}
+                    rightTitle={'Profile'}
+                    onRightPress={this.onProfilePress} />
                 {this.renderVideoList()}
-                <TouchableOpacity style={{
-                    position: 'absolute',
-                    top: Platform.OS == 'ios' ? 42 : 20,
-                    right: 20
-                }} onPress={() => {
-                    this.props.navigation.navigate('Profile')
-                }}>
-                    <Text style={{ color: 'white' }}>Profile</Text>
-                </TouchableOpacity>
                 <Loader isVisible={this.props.loading} />
             </SafeAreaView>
         );

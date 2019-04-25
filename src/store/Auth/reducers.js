@@ -1,7 +1,10 @@
 import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
-  LOGIN_FAILURE
+  LOGIN_FAILURE,
+  SESSION_RESTORE_REQUEST,
+  SESSION_RESTORE_SUCCESS,
+  SESSION_RESTORE_FAILURE,
 } from './actionTypes';
 
 const intialState = {
@@ -24,6 +27,23 @@ export default (state = intialState, action) => {
         loading: false
       };
     case LOGIN_FAILURE:
+      return {
+        ...state,
+        userData: {},
+        loading: false
+      };
+    case SESSION_RESTORE_REQUEST:
+      return {
+        ...state,
+        loading: true
+      };
+    case SESSION_RESTORE_SUCCESS:
+      return {
+        ...state,
+        userData: action.payload,
+        loading: false
+      };
+    case SESSION_RESTORE_FAILURE:
       return {
         ...state,
         userData: {},
